@@ -1,1 +1,1 @@
-var ezOAuthjs = require("ezoauthjs")
+var ezOAuthjs = require("./ezOAuth")

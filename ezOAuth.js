@@ -1,1 +1,3 @@
-exports.hi = hi
+var express = require("express");
+var passport = require("passport");
+exports = {};
