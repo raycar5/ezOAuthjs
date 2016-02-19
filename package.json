@@ -1,0 +1,30 @@
+{
+  "name": "ezoauthjs",
+  "version": "0.0.1",
+  "description": "Library for integrating secure and easy server side OAuth authentication in Android and (hopefully) IOS applications",
+  "main": "ezOAuth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raycar5/ezOAuthjs.git"
+  },
+  "keywords": [
+    "OAuth",
+    "easy",
+    "Android",
+    "IOS",
+    "Passport"
+  ],
+  "author": "raycar5",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raycar5/ezOAuthjs/issues"
+  },
+  "homepage": "https://github.com/raycar5/ezOAuthjs#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "passport": "^0.3.2"
+  }
+}
