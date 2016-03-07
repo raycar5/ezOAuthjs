@@ -25,6 +25,8 @@
   "homepage": "https://github.com/raycar5/ezOAuthjs#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "passport": "^0.3.2"
+    "express-session": "^1.13.0",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4"
   }
 }
