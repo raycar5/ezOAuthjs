@@ -1,38 +1,33 @@
-var express = require("express");
-var passport = require("passport");
-var session = require("express-session");
+var passport;
+var serverURL
 var app;
 var path;
-exports.init = function(context,serverURL, consumerKey, consumerSecret, responseFunction, ops){
+var pathEnd = "/twitter";
+exports.init = function(context, consumerKey, consumerSecret, responseFunction, ops){
 	//Configure passport twitter strategy
-	var app = context.app;
-	var path = context.path;
+	serverURL = context.serverURL;
+	passport = context.passport;
+	app = context.app;
+	path = context.path;
+	if (ops != null && ops.path != null) {pathEnd = ops.path};
 	var TwitterStrategy = require('passport-twitter').Strategy;
 	passport.use(new TwitterStrategy({
 	    consumerKey: consumerKey,
 	    consumerSecret: consumerSecret,
-	    callbackURL: serverURL + path + "/twitter/callback"
+	    callbackURL: serverURL + path + pathEnd + "/callback"
 	  	},
 	  	function(token, tokenSecret, profile, done) {
 	  		//Pass passport response as a single object
 	      done(null, {token: token, tokenSecret: tokenSecret, profile: profile});
 	    })
 	);
-	if(ops == null || !ops.deviceIdentifier){
+	if(!context.authenticateDevice){
 		//Doesn't have device identifier
-		context.app.get(path + "/twitter", passport.authenticate('twitter'));
-		app.get(path + '/twitter/callback', passport.authenticate('twitter'),function(req,res){
-			//Respond based on the function provided
-			res.send(responseFunction(req.session.passport.user));
-		});
+		app.get(path + pathEnd,context.middleware.metadata(), passport.authenticate('twitter'));
+		app.get(path + pathEnd + '/callback', passport.authenticate('twitter'), context.middleware.respond(responseFunction));
 	}else{
 		//Has device identifier
-		app.get(path + "/twitter/:id",function(req, res, next){
-			if (ops.deviceAuthenticator(req.params.id)){
-				next();
-			}else{
-				res.end();
-			}
-		}, passport.authenticate('twitter'));	
+		app.get(path + pathEnd, context.middleware.authenticateDevice(), context.middleware.metadata(), passport.authenticate('twitter'));	
+		app.get(path + pathEnd + '/callback', passport.authenticate('twitter'), context.middleware.respond(responseFunction));
 	}	
 };

@@ -15,7 +15,8 @@
     "easy",
     "Android",
     "IOS",
-    "Passport"
+    "passport",
+    "express"
   ],
   "author": "raycar5",
   "license": "MIT",
@@ -27,6 +28,8 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "passport": "^0.3.2",
+    "passport-facebook": "^2.1.0",
+    "passport-google-oauth20": "^1.0.0",
     "passport-twitter": "^1.0.4"
   }
 }
